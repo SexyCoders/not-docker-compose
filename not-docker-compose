@@ -3,19 +3,62 @@
 declare -A ndc
 config_file=$1;
 allowed_commands=();
-
-echo "****************************************************************";
-echo "********************** NOT-DOCKER-COMPOSE **********************";
-echo "****************************************************************";
-
+no_goodbye=0;
+no_hello=0;
 config_lines=();
 
-while IFS= read -r line; do
-  config_lines+=("$line")
-  echo ${config_lines[-1]};
-done < $config_file;
+function check_file_path(){
+  echo "$config_file";
+}
 
-for line in config_lines; do
-  IFS=' ' read -ra my_array <<< "$(<$config_file)"
-done
+function on_init(){
+  check_file_path;
+  recover_env_state;
 
+  if [ ! no_hello ];then
+    hello;
+  fi
+}
+
+function before_exit(){
+  store_env_state;
+
+  if [ ! no_goodbye ];then
+    goodbye;
+  fi
+}
+
+function store_env_state(){
+  echo "Storing env state to filesystem.";
+}
+
+function recover_env_state(){
+  echo "Recovering env state from filesystem.";
+}
+
+function goodbye(){
+  echo "****************************************************************";
+  echo "*************************** GOODBYE ****************************";
+  echo "****************************************************************";
+}
+
+function hello(){
+  echo "****************************************************************";
+  echo "********************** NOT-DOCKER-COMPOSE **********************";
+  echo "****************************************************************";
+}
+
+function parse_config(){
+  while IFS= read -r line; do
+    config_lines+=("$line")
+    echo ${config_lines[-1]};
+  done < $config_file;
+
+  for line in config_lines; do
+    IFS=' ' read -ra my_array <<< "$(<$config_file)"
+  done
+}
+
+on_init;
+parse_config;
+before_exit;
