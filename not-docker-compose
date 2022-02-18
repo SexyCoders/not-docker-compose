@@ -1,0 +1,21 @@
+#!/bin/bash
+
+declare -A ndc
+config_file=$1;
+allowed_commands=();
+
+echo "****************************************************************";
+echo "********************** NOT-DOCKER-COMPOSE **********************";
+echo "****************************************************************";
+
+config_lines=();
+
+while IFS= read -r line; do
+  config_lines+=("$line")
+  echo ${config_lines[-1]};
+done < $config_file;
+
+for line in config_lines; do
+  IFS=' ' read -ra my_array <<< "$(<$config_file)"
+done
+
