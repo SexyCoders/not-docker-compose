@@ -1,4 +1,4 @@
-<img src="./5133_-_Delivery_via_Shipping-512.png" width="50%" heigth="50%"/>
+<img src="./5133_-_Delivery_via_Shipping-512.png" width="45%"/>
 
 # not-docker-compose
 
