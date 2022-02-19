@@ -1,6 +1,6 @@
 # not-docker-compose
 
-not-docker-compose allows you to collectivelly or individually manage all aspects of a docker environment, such as containers, networks, images, swarms etc.
+<b>not-docker-compose</b> allows you to collectivelly or individually manage all aspects of a docker environment, such as containers, networks, images, swarms etc.
 
 <b>not-docker-compose</b>, is a docker-compose alternative, that for once:
 - respects all unix practices and almost always follows posix
