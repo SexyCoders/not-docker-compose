@@ -1,3 +1,5 @@
+<img src="./5133_-_Delivery_via_Shipping-512.png" width="50%" heigth="50%"/>
+
 # not-docker-compose
 
 <b>not-docker-compose</b> allows you to collectivelly or individually manage all aspects of a docker environment, such as containers, networks, images, swarms etc.
@@ -15,8 +17,8 @@
 If you wish to specify another file as input use the "-f/--file" parameter. 
 
 App configuration is stored under <b>etc/not-docker-compose/apps/\*app_name*</b> .  
-You can opt out, and only use local config file (not recommended!) by adding #nostore to your config file!
-Active configurations are placed, using symbolic links, under <b>etc/not-docker-compose/enabled</b> and can be managed using:
+You can opt out, and only use local config file (not recommended!) by adding #nostore to your config file!  
+Active configurations are defined, using symbolic links, under <b>etc/not-docker-compose/enabled</b> and can be managed using:
 
 ```bash
  not-docker-compose enable/disable <app_name>
@@ -33,9 +35,8 @@ e.g. not-docker-composer config init --file ./my_config_file
 
 > <b>init</b> - initialize config of your applications. If preexisting config is found it will be overwritten (you will be prompted)
 
-> <b>update</b> - will compare config files and append/remove changes (to remove or append individually directly to different apps see "app" section)
+> <b>update</b> - will compare config files and append/remove changes (to remove or append individuall properties of apps see "app" section)
 
-#
 ## app commands
 
 
@@ -65,5 +66,3 @@ not-docker-compose demo-app my_entity ip 10.0.0.23
 
 will change demo_app->my_entities ip address to 10.0.0.23.
 The parameter can be any valid configuration field. For more info please read CONFIGURE.md.
-
-#
