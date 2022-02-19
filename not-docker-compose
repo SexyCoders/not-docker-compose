@@ -8,6 +8,19 @@ no_goodbye=0;
 no_hello=0;
 config_lines=();
 
+array_contains () { 
+    local array="$1[@]"
+    local seeking=$2
+    local in=1
+    for element in "${!array}"; do
+        if [[ $element == "$seeking" ]]; then
+            in=0
+            break
+        fi
+    done
+    return $in
+}
+
 on_init(){
   recover_env_state;
 
@@ -47,32 +60,31 @@ hello(){
 parse_config(){
   config_file="$1"
   if [ ! -f "$config_file" ]; then
-    if [ ! -f "composefile" ]; then
-      if [ ! -f "Composefile" ]; then
-        echo "Config file not found! Aborting!"
+    config_file="composefile";
+    if [ ! -f "$config_file" ]; then
+      config_file="Composefile";
+      if [ ! -f "$config_file" ]; then
+        echo "Config file not found! Aborting!" >&2
         return;
       fi
     fi
   fi
 
-  while IFS= read -r line; do
+  while read -r line; do
     config_lines+=("$line")
-    #echo ${config_lines[-1]};
   done < $config_file;
-  echo "check"
 
-  for line in ${config_lines}; do
+  for line in ${config_lines[@]}; do
     IFS=' ' read -ra my_array <<< $line
-        #echo $(echo $allowed_commands | grep -w -q 'test');
-      if [[ " ${allowed_commands[*]} " =~ " ${my_array[0]} " ]]; then
-      # whatever you want to do when array contains value
-      echo sdfgsdfgfd;
-      fi
+      array_contains allowed_commands "${my_array[0]}" && echo "${my_array[0]}";
   done
 }
 
 on_init;
 if [ "$1" = "config" ];then
-  parse_config "$2";
+  if [ "$2" = "init" ];then
+    parse_config "$3";
+  fi
+  #parse_config "$2";
 fi
 before_exit;
