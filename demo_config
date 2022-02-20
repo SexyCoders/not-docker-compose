@@ -1,0 +1,7 @@
+app demo
+
+network demo 
+subnet 23.0.0.0/8
+
+demo
+image hello world

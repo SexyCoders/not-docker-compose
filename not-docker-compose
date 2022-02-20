@@ -3,7 +3,8 @@
 declare -A ndc_config
 declare -A ndc_state
 command=$1;
-allowed_commands=("test");
+top_level_commands=("network","service");
+network_commands=;
 no_goodbye=0;
 no_hello=0;
 config_lines=();
@@ -22,39 +23,11 @@ array_contains () {
 }
 
 on_init(){
-  recover_env_state;
-
-  if [ ! no_hello ];then
-    hello;
-  fi
+  echo "init";
 }
 
 before_exit(){
-  store_env_state;
-
-  if [ ! no_goodbye ];then
-    goodbye;
-  fi
-}
-
-store_env_state(){
-  echo "Storing env state to filesystem.";
-}
-
-recover_env_state(){
-  echo "Recovering env state from filesystem.";
-}
-
-goodbye(){
-  echo "****************************************************************";
-  echo "*************************** GOODBYE ****************************";
-  echo "****************************************************************";
-}
-
-hello(){
-  echo "****************************************************************";
-  echo "********************** NOT-DOCKER-COMPOSE **********************";
-  echo "****************************************************************";
+  echo "exit";
 }
 
 parse_config(){
@@ -75,16 +48,87 @@ parse_config(){
   done < $config_file;
 
   for line in ${config_lines[@]}; do
+  #echo "$config_lines";
     IFS=' ' read -ra my_array <<< $line
-      array_contains allowed_commands "${my_array[0]}" && echo "${my_array[0]}";
+      array_contains top_level_commands "${my_array[0]}" && echo "${my_array[0]}";
   done
 }
 
-on_init;
-if [ "$1" = "config" ];then
-  if [ "$2" = "init" ];then
-    parse_config "$3";
+parse_config_parameters(){
+  j=0;
+  local t=( $@ );
+  while [ $j -lt $# ];do
+    #echo $j; 
+    option=${t[$j]}
+    #echo $option;
+    case $option in
+      "init")
+
+      ;;
+      #"update")
+      #;;
+  esac
+  ((j++));
+  done
+}
+
+parse_app_parameters(){
+  j=0;
+  ndc_state+=([app]=$1);
+  echo "${ndc_state[app]}";
+  local t=( $@ );
+  while [ $j -lt $# ];do
+    option=${t[$j]}
+    case $option in
+      "-f")
+        config_file=${t[((++j))]}
+      ;;
+      "--file")
+        config_file=${t[((++j))]}
+      ;;
+  esac
+  ((j++));
+  done
+}
+
+check_config_path(){
+  j=0;
+  local t=( $@ );
+  config_file="composefile";
+  while [ $j -lt $# ];do
+    option=${t[$j]}
+    case $option in
+      "-f")
+        config_file=${t[((++j))]}
+      ;;
+      "--file")
+        config_file=${t[((++j))]}
+      ;;
+  esac
+  ((j++));
+  done
+  if [ ! -f "$config_file" ]; then
+      config_file="Composefile";
+    if [ ! -f "$config_file" ]; then
+      echo "Config file not found! Aborting!" >&2
+      return;
+    fi
   fi
-  #parse_config "$2";
+  echo "Using config file '$config_file"\';
+}
+
+#on_init;
+echo "-------------------------------------------";
+echo "Running not-docker-compose version 0.1-beta";
+echo "-------------------------------------------";
+check_config_path $@;
+if [ "$1" = "config" ];then
+  parse_config_parameters $@;
+elif [ "$1" = "enable" ];then
+  echo "enable command";
+elif [ "$1" = "disable" ];then
+  echo "disable command";
+else
+  parse_app_parameters $@;
 fi
-before_exit;
+#before_exit;
