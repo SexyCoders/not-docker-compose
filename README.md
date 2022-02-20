@@ -40,20 +40,20 @@ e.g. not-docker-composer config init --file ./my_config_file
 ## app commands
 
 
-### top level commands concerning the app as a whole:
+### top level commands concerning an app as a whole:
 ```bash
 not-docker-compose <app-name> <command> <parameters>;
 
 e.g. no-docker-compose demo_app reset --force;
 ```
 
-> <b>init</b> - Start the application. This will start all the containers, networks and all other entities required by the application configuration.
+> <b>start</b> - Start the application. This will start all the containers, networks and all other entities required by the application configuration.
 
-> <b>restart</b> - Restart the application, applying any new config changes. Docker entities will remain intact.
+> <b>restart</b> - Restart the application. If config changes have to be applied, docker entities might be removed and recreated. Otherwize they will remain intact.
 
 > <b>reset</b> - Hard reset the application. This will remove the docker entities and recreate them. Docker conflicts can be overriden using --force.
 
-### individual enityties control commands:
+### individual entyties control commands:
 ```bash
 not-docker-compose <app-name> <entity> <parameter> <value>
 ```
@@ -65,4 +65,4 @@ not-docker-compose demo-app my_entity ip 10.0.0.23
 ```
 
 will change demo_app->my_entities ip address to 10.0.0.23.
-The parameter can be any valid configuration field. For more info please read CONFIGURE.md.
+The parameter can be any valid configuration field. For more info please read CONFIGURATION.md.
