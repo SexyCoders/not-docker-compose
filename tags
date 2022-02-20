@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+General Info	README.md	/^## General Info$/;"	s	chapter:not-docker-compose
+app commands	README.md	/^## app commands$/;"	s	chapter:not-docker-compose
+array_contains	not-docker-compose	/^array_contains () { $/;"	f
+before_exit	not-docker-compose	/^before_exit(){$/;"	f
+config commands	README.md	/^## config commands$/;"	s	chapter:not-docker-compose
+config_lines=	not-docker-compose	/^config_lines=();$/;"	f
+goodbye	not-docker-compose	/^goodbye(){$/;"	f
+hello	not-docker-compose	/^hello(){$/;"	f
+individual enityties control commands:	README.md	/^### individual enityties control commands:$/;"	S	section:not-docker-compose""app commands
+not-docker-compose	README.md	/^# not-docker-compose$/;"	c
+on_init	not-docker-compose	/^on_init(){$/;"	f
+parse_config	not-docker-compose	/^parse_config(){$/;"	f
+recover_env_state	not-docker-compose	/^recover_env_state(){$/;"	f
+store_env_state	not-docker-compose	/^store_env_state(){$/;"	f
+top level commands concerning the app as a whole:	README.md	/^### top level commands concerning the app as a whole:$/;"	S	section:not-docker-compose""app commands
