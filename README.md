@@ -53,7 +53,7 @@ e.g. no-docker-compose demo_app reset --force;
 
 > <b>reset</b> - Hard reset the application. This will remove the docker entities and recreate them. Docker conflicts can be overriden using --force.
 
-### individual entyties control commands:
+### individual entity control commands:
 ```bash
 not-docker-compose <app-name> <entity> <parameter> <value>
 ```
